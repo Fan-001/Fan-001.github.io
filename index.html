@@ -1,83 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Margic Cube</title>
-    <link  rel="stylesheet" type="text/css" href="margic-cube.css">
-</head>
-<body>
-<div id="outerContainer">
-<div id="container">
-   <div class="one">
        <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-   <div class="two">
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-   <div class="three">
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-   <div class="four">
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-   <div class="five">
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-   <div class="six">
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-       <div class="min_cube"></div>
-   </div>
-</div>
-</div>
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>猜猜看游戏</title>
+
+		<script type="text/javascript">
+			var random=0;
+			var start=0;
+			var end=0;
+			function startTime(){
+				start=new Date();
+			}
+			function endTime(){
+				end=new Date();
+			}
+			//三种游戏模式,结束后在框体中输出所选游戏模式和成功完成游戏所花时间
+			function primary(){
+				random=parseInt(Math.random()*99+1);
+				var timeprimary=startgame();
+				document.getElementById("his").innerHTML="初级难度用时:"+timeprimary+"秒";
+			}
+			function middle(){
+				random=parseInt(Math.random()*999+1);
+				var timemiddle=startgame();
+				document.getElementById("his").innerHTML="中级难度用时:"+timemiddle+"秒";
+			}
+			function high(){
+				random=parseInt(Math.random()*9999+1);
+				var timehigh=startgame();
+				document.getElementById("his").innerHTML="高级难度用时:"+timehigh+"秒";
+			}
+
+			//如果没有输入按了确定或者取消,prompt仍然返回值 为空或空字符串,还有输入的值不是数字的时候,返回字符串"NULL"
+			function shuru(){
+				var temp=prompt("这是一个有魔力的游戏，来看看你要猜的是哪个数字叭！");
+				if(temp==""||temp==null){
+					alert("数字可不是这样的哦~");
+					return "NULL";
+				}else{
+					if(isNaN(temp)){
+						return "NULL";
+					}else{
+						return parseInt(temp);
+					}
+				}
+			}
+
+			//当识别到输入出错(返回值为字符串"NULL")时,提示错误,返回Error,否则进行判断
+			function jianyan(){
+				var que=shuru();
+				if(que!="NULL"){
+					if(que==random){
+						alert("哦!原来是"+ random +"！");
+						return true;
+					}else if(que>random){
+						alert("幸运好像没那么大哦");
+						return false;
+					}else{
+						alert("幸运好像需要更多的力量，更大的数值哦");
+						return false;
+					}
+				}else{
+					alert("Again?");
+					return Error;
+				}
+			}
+
+			//当校验返回的值为Error时返回一个无穷大时间同时结束了函数继续运行,当校验返回的值为false时说明输入错误,继续弹框输入,为true时,输入正确,结束循环,并计算用时
+			function startgame(){
+				startTime();
+				var a=false;
+				while(!a){
+					a=jianyan();
+					if(a==Error){
+						return 9999;
+					}
+				}
+				endTime();
+				var time=(end-start)/1000;
+				alert("用时"+time+"秒");
+				return time;
+			}
+		</script>
+
+		<style type="text/css">
+    h1{text-align:center;}
+    h2{text-align: left;}
+
+			#his{
+				font-size: 100;
+				width:500px;
+				height: 50px;
+				border: 1px solid black;
+        text-align: center;
+			}
+
+      </style>　
+
+	</head>
+	<body style="background-color: lavender;">>
+		<div>
+			<h1 style="color:midnightblue">猜猜看!</h1>
+			<h2 style="color:midnightblue">请您选择难度,初级(1-100),中级(1-1000),高级(1-10000)</br>来试试多久能猜中那个数字吧！</h2>
+			<br />
+      <h2 style="color:midnightblue">游戏解释：选择难度后，请您根据提示在弹窗中输入猜测的数字，我们将会记录您所用的时间</h2>
+			<input type="button" value="初级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="primary()"/>
+			<input type="button" value="中级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="middle()"/>
+			<input type="button" value="高级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="high()"/>
+
+      </style>　
+      <div id="his">
+
+
+
+			</div>
+		</div>
+	</body>
 </html>
-————————————————
-版权声明：本文为CSDN博主「莫修」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/luojiandecsdn/article/details/50554291
