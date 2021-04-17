@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>猜猜看游戏</title>
-
+ 		<link rel="stylesheet" href="style.css">
 		<script type="text/javascript">
 			var random=0;
 			var start=0;
@@ -36,7 +36,7 @@
 			function shuru(){
 				var temp=prompt("这是一个有魔力的游戏，来看看你要猜的是哪个数字叭！");
 				if(temp==""||temp==null){
-					alert("数字可不是这样的哦~");
+					alert("您不想猜数字了吗？");
 					return "NULL";
 				}else{
 					if(isNaN(temp)){
@@ -55,14 +55,14 @@
 						alert("哦!原来是"+ random +"！");
 						return true;
 					}else if(que>random){
-						alert("幸运好像没那么大哦");
+						alert("再往小了猜？");
 						return false;
 					}else{
-						alert("幸运好像需要更多的力量，更大的数值哦");
+						alert("数字没这么小哦");
 						return false;
 					}
 				}else{
-					alert("Again?");
+					alert("回到初始？");
 					return Error;
 				}
 			}
@@ -85,32 +85,56 @@
 		</script>
 
 		<style type="text/css">
-    h1{text-align:center;}
-    h2{text-align: left;}
+		*{
+			margin:0
+			padding:0
+		}
+		html.body{
+			width:100%;
+			height:100%
+		}
+		.loginFrame{
+			width:700px;
+			height:300px;
+			position:fixed;
+			top:0;
+			left:140px;
+			right:0;
+			bottom:0;
+			margin: auto;
+		}
 
+    h1,h2{text-align:center;}
 			#his{
 				font-size: 100;
-				width:500px;
+				width:550px;
 				height: 50px;
 				border: 1px solid black;
         text-align: center;
+				top:0;
+				left:0;
+				right:0;
+				bottom:0;
+				margin: auto
 			}
 
       </style>　
 
 	</head>
-	<body style="background-color: lavender;">>
+	<body>
 		<div>
-			<h1 style="color:midnightblue">猜猜看!</h1>
-			<h2 style="color:midnightblue">请您选择难度,初级(1-100),中级(1-1000),高级(1-10000)</br>来试试多久能猜中那个数字吧！</h2>
-			<br />
-      <h2 style="color:midnightblue">游戏解释：选择难度后，请您根据提示在弹窗中输入猜测的数字，我们将会记录您所用的时间</h2>
-			<input type="button" value="初级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="primary()"/>
-			<input type="button" value="中级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="middle()"/>
-			<input type="button" value="高级难度" style="font-family: Arial; color: midnightblue;font-size: 27px" size="10"  onclick="high()"/>
+			<h1 style="color:white">猜猜看游戏</h1>
+			<h2 style="color:white">选择游戏难度:初级(1-100),中级(1-1000),高级(1-10000)</br>点击下方的三个按钮，来试试多久能猜中那个数字吧！</h2>
+      <h2 style="color:white">游戏解释：选择难度后，请您根据提示在弹窗中输入猜测的数字，我们将会记录您所用的时间</h2>
+			<div class="loginFrame">
+			<input type="button" value="初级难度 先试试手!" style="font-family: Helvetica,Helvetica,Arial; color: skyblue;font-size: 18px" size="10"  onclick="primary()"/>
+			<input type="button" value="中级难度 挑战自己~" style="font-family: Helvetica,Helvetica,Arial; color: pink;font-size: 18px" size="10"  onclick="middle()"/>
+			<input type="button" value="高级难度 突破极限！" style="font-family: Helvetica,Helvetica,Arial; color: black;font-size: 18px" size="10"  onclick="high()"/>
+		  </div>
 
       </style>　
       <div id="his">
+
 
 
 
