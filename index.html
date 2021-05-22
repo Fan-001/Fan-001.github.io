@@ -1,144 +1,375 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>猜猜看游戏</title>
- 		<link rel="stylesheet" href="style.css">
-		<script type="text/javascript">
-			var random=0;
-			var start=0;
-			var end=0;
-			function startTime(){
-				start=new Date();
-			}
-			function endTime(){
-				end=new Date();
-			}
-			//三种游戏模式,结束后在框体中输出所选游戏模式和成功完成游戏所花时间
-			function primary(){
-				random=parseInt(Math.random()*99+1);
-				var timeprimary=startgame();
-				document.getElementById("his").innerHTML="初级难度用时:"+timeprimary+"秒";
-			}
-			function middle(){
-				random=parseInt(Math.random()*999+1);
-				var timemiddle=startgame();
-				document.getElementById("his").innerHTML="中级难度用时:"+timemiddle+"秒";
-			}
-			function high(){
-				random=parseInt(Math.random()*9999+1);
-				var timehigh=startgame();
-				document.getElementById("his").innerHTML="高级难度用时:"+timehigh+"秒";
-			}
+<!doctype html>
+<html lang="en">
+ <head>
+ <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+ <!-- Bootstrap CSS -->
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/
+bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+ <title>The New ordering system</title>
 
-			//如果没有输入按了确定或者取消,prompt仍然返回值 为空或空字符串,还有输入的值不是数字的时候,返回字符串"NULL"
-			function shuru(){
-				var temp=prompt("这是一个有魔力的游戏，来看看你要猜的是哪个数字叭！");
-				if(temp==""||temp==null){
-					alert("您不想猜数字了吗？");
-					return "NULL";
-				}else{
-					if(isNaN(temp)){
-						return "NULL";
-					}else{
-						return parseInt(temp);
-					}
-				}
-			}
+ </head>
 
-			//当识别到输入出错(返回值为字符串"NULL")时,提示错误,返回Error,否则进行判断
-			function jianyan(){
-				var que=shuru();
-				if(que!="NULL"){
-					if(que==random){
-						alert("哦!原来是"+ random +"！");
-						return true;
-					}else if(que>random){
-						alert("再往小了猜？");
-						return false;
-					}else{
-						alert("数字没这么小哦");
-						return false;
-					}
-				}else{
-					alert("回到初始？");
-					return Error;
-				}
-			}
+ <body>
 
-			//当校验返回的值为Error时返回一个无穷大时间同时结束了函数继续运行,当校验返回的值为false时说明输入错误,继续弹框输入,为true时,输入正确,结束循环,并计算用时
-			function startgame(){
-				startTime();
-				var a=false;
-				while(!a){
-					a=jianyan();
-					if(a==Error){
-						return 9999;
-					}
-				}
-				endTime();
-				var time=(end-start)/1000;
-				alert("用时"+time+"秒");
-				return time;
-			}
-		</script>
+   <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+     <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="img/1.jpg" width="100" height="100" alt="">Order System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-		<style type="text/css">
-		*{
-			margin:0
-			padding:0
-		}
-		html.body{
-			width:100%;
-			height:100%
-		}
-		.loginFrame{
-			width:700px;
-			height:300px;
-			position:fixed;
-			top:0;
-			left:140px;
-			right:0;
-			bottom:0;
-			margin: auto;
-		}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"> Home</a>
+      </li>
+      <li class="nav-item Active">
+        <a class="nav-link" href="#">Service</a>
+      </li>
+      <li class="nav-item Active">
+        <a class="nav-link" href="#">All Dishes</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Kind
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">sweet</a>
+          <a class="dropdown-item" href="#">spicy</a>
+          <a class="dropdown-item" href="#">salty</a>
+          <a class="dropdown-item" href="#">bitter</a>
+          <a class="dropdown-item" href="#">sour</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">other type</a>
+        </div>
+      </li>
+      <li class="nav-item Active">
+        <a class="nav-link" href="#">About Us</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
-    h1,h2{text-align:center;}
-			#his{
-				font-size: 100;
-				width:550px;
-				height: 50px;
-				border: 1px solid black;
-        text-align: center;
-				top:0;
-				left:0;
-				right:0;
-				bottom:0;
-				margin: auto
-			}
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="img/2.jpg" class="d-block w-100 img-fluid" alt="" >
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Chefs Dish</h1>
+        <h3>Sirloin Steak</h3>
+        <button type="button" class="btn btn-secondary btn-lg">Learn More</button>
+        <button type="button" class="btn btn-secondary btn-lg">Order</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="img/3.jpg" class="d-block w-100 img-fluid" alt="">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Special Dish</h1>
+        <h3>Beef Pasta</h3>
+        <button type="button" class="btn btn-secondary btn-lg">Learn More</button>
+        <button type="button" class="btn btn-secondary btn-lg">Order</button>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="img/4.jpg" class="d-block w-100 img-fluid" alt="">
+      <div class="carousel-caption d-none d-md-block">
+        <h1>Dessert</h1>
+        <h3>Napoleon Cake</h3>
+        <button type="button" class="btn btn-secondary btn-lg">Learn More</button>
+        <button type="button" class="btn btn-secondary btn-lg">Order</button>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<hr class="my-4">
+<div class="p-3 mb-2 bg-secondary text-white">Service</div>
+<div class="container-fluid">
+  <div class="row jumbotron">
+    <div class="col-xs-12 col-sm-12 col-md-9 col-xl-10">
+      <p class="lead">Our food order system is different from the commom order system.You can try to choose the food according to your preference.Let's try it!
+      If you need help or have questions ,please click the button below call the waiters.</p>
+    </div>
+    <div class="dropdown">
+      <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Call Ring
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#">Order</a></li>
+        <li><a class="dropdown-item" href="#">pay the bill</a></li>
+        <li><a class="dropdown-item" href="#">need paper towels</a></li>
+        <li><a class="dropdown-item" href="#">Something else</a></li>
+      </ul>
+    </div>
+   <div class="col-xs-12 col-sm-12 col-md-3 col-xl-2">
+    <a href="#" type="button" class="btn btn-info btn-lg">Get Started</a>
+   </div>
+ </div>
+</div>
 
-      </style>　
+<hr class="my-4">
 
-	</head>
-	<body>
-		<div>
-			<h1 style="color:white">猜猜看游戏</h1>
-			<h2 style="color:white">选择游戏难度:初级(1-100),中级(1-1000),高级(1-10000)</br>点击下方的三个按钮，来试试多久能猜中那个数字吧！</h2>
-      <h2 style="color:white">游戏解释：选择难度后，请您根据提示在弹窗中输入猜测的数字，我们将会记录您所用的时间</h2>
-			<div class="loginFrame">
-			<input type="button" value="初级难度 先试试手!" style="font-family: Helvetica,Helvetica,Arial; color: skyblue;font-size: 18px" size="10"  onclick="primary()"/>
-			<input type="button" value="中级难度 挑战自己~" style="font-family: Helvetica,Helvetica,Arial; color: pink;font-size: 18px" size="10"  onclick="middle()"/>
-			<input type="button" value="高级难度 突破极限！" style="font-family: Helvetica,Helvetica,Arial; color: black;font-size: 18px" size="10"  onclick="high()"/>
-		  </div>
-
-      </style>　
-      <div id="his">
+<div class="container-fluid">
+  <div class="row text-center">
+    <div class="col-12">
+      <h1 class="displsy-4">Today's New creative dishes</h1>
+    </div>
+    <div class="col-12">
+      <p>Our menu has a different category<br>we divide all dishes into taste categories
+      </div>
+  </div>
+</div>
 
 
+<button type="button" class="btn btn-info col-xs-12 col-sm-12 col-md-3 col-xl-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  click here check THE ORDER
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Ordered dishes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">the dishes you have orderes will be displayed here.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>the dishes you have orderes will be displayed here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info">confirmed</button>
+      </div>
+    </div>
+  </div>
+</div>
+        <style type="text/css">
+            .cardBox {
+                width: 400px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                text-align: center;
+                float: left;
+                margin-right: 106px;
+                padding: 10px;
+                padding-top: 15px;
+
+            }
+
+            .headerBox {
+                color:Chocolate;
+                padding: 10px;
+                font-size: 15px;
+                height: 60px;
+            }
+
+            .bodyBox {
+                padding: 5px;
+            }
+
+            .bodyBox p {
+                margin-left: 10px;
+            }
+        </style>
+  <body>
+        <div>
+            <div class="cardBox">
+                <div class="headerBox" style="background-color: pink;">
+                    <p>
+                        <h2 title="New creative dishes" style=" color:white" >Sweet Food</h2>
+                    </p>
+                </div>
+                <div class="bodyBox">
+                   <img src="img/5.jpg" class="img-fluid"></img>
+                    <p>NAME:  Strawberry Muffin</p>
+                    <p>COST:  <span style="color:SlateGray">35RMB</span></p>
+                    <p>LIKE NUMBER: <span style="color:SlateGray">350</span></p>
+                    <a href="#" class="btn btn-primary btn-info" >Learn More</a>
+                </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="cardBox">
+                    <div class="headerBox" style="background-color: HotPink;">
+                        <p>
+                            <h2 title="OUR MUNE" style=" color:white">Spicy Food</h2>
+                        </p>
+                    </div>
+                    <div class="bodyBox">
+                       <img src="img/7.jpg" class="img-fluid"></img>
+                        <p>NAME:  Nine-grid Hot pot</p>
+                        <p>COST:  <span style="color:SlateGray">200RMB</span></p>
+                        <p>LIKE NUMBER: <span style="color:SlateGray">500</span></p>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                      <button class="btn btn-primary btn-info" type="button">Learn More</button>
+                    </div>
+                </div>
+              </div>
+
+                <div>
+                    <div class="cardBox">
+                        <div class="headerBox" style="background-color:DarkKhaki;">
+                            <p>
+                                <h2 title="OUR MUNE" style=" color:white" >Sour Food</h2>
+                            </p>
+                        </div>
+                        <div class="bodyBox">
+                           <img src="img/8.jpg" class="img-fluid"></img>
+                            <p>NAME:  Lemon Drink</p>
+                            <p>COST:  <span style="color:SlateGray">25RMB</span></p>
+                            <p>LIKE NUMBER: <span style="color:SlateGray">100</span></p>
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                              <button class="btn btn-primary btn-info" type="button">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
 
 
-			</div>
-		</div>
-	</body>
+<hr class="my-4">
+
+<div class="container-fluid">
+  <div class="row text-center">
+    <div class="col-12">
+      <img src="img/10.jpg" class="img-fluid">
+      <h1 class="displsy-4">Somthing about the Loft!</h1>
+    </div>
+    <div class="col-12">
+      <p>Loft is a creative fusion food restaurant to make its own innovation and patterns, so that customers can not only meet the material food, but also enjoy the spiritual enjoyment. Most importantly, customers can also talk about their ideals , seek partners, and jointly start their own entrepreneurial journey here.</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  </div>
+</div>
+
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Enterprise idea One
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Eat as far as the eye can see</strong>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Enterprise idea Two
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Customers look their best when they're eating</strong>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Enterprise idea Three
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>Just be yourself</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<footer>
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>LOFT</h5>
+        <hr class="light">
+        <p>666-666-6666</p>
+        <p>123456789.qqcom</p>
+        <p>221 Baker Street</p>
+        <p>City,State,10000</p>
+      </div>
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>OUR HOUS</h5>
+        <hr class="light">
+        <p>Monday:closed</p>
+        <p>Sunday:10:00am-10:00pm</p>
+        <p>Tuesday-Saturday:10:00am-12:00pm</p>
+    </div>
+    <div class="col-md-4">
+      <hr class="light">
+      <h5>Service</h5>
+      <hr class="light">
+      <p>Take out</p>
+      <p>Reservation</p>
+      <p>Others</p>
+    </div>
+  </div>
+</div>
+</footer>
+
+
+
+
+
+
+
+
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-
+ JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+ </body>
 </html>
